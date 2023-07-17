@@ -43,7 +43,7 @@ public class FacultyDashboard extends AppCompatActivity {
         // get faculty name in dashboard
         cursor = db.getFacultyName(sharedFid);
 
-        if (cursor.getCount() != 0)
+        if (cursor.getCount() > 0)
         {
             while (cursor.moveToNext())
             {
