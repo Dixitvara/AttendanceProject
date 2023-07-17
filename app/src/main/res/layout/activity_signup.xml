@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Signup">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        />
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginVertical="30sp"
+        android:text="Registration"
+        android:textSize="40sp"
+        />
+
+    <EditText
+        android:id="@+id/FullName"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="25sp"
+        android:hint="FullName"
+        android:autofillHints=""
+        android:background="@drawable/edittextstyle"
+        android:padding="15dp"
+        android:minHeight="48dp"
+        />
+
+    <EditText
+        android:id="@+id/En"
+        android:autofillHints=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="25sp"
+        android:hint="Enrollment No"
+        android:background="@drawable/edittextstyle"
+        android:padding="15dp"
+        android:inputType="number"
+        android:minHeight="48dp"
+        />
+
+    <EditText
+        android:id="@+id/Email"
+        android:inputType = "textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="25sp"
+        android:hint="Email"
+        android:background="@drawable/edittextstyle"
+        android:padding="15dp"
+        android:minHeight="48dp"
+        android:autofillHints=""
+        />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:background="@drawable/edittextstyle"
+        android:padding="15dp"
+        android:autofillHints=""
+        android:layout_marginBottom="25sp"
+        />
+
+    <TextView
+        android:id="@+id/loginLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="Already have an account? Login"
+        android:layout_marginBottom="25sp"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/Login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:text="Submit"
+        android:textSize="20sp"
+        />
+
+</LinearLayout>

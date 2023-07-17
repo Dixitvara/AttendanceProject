@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddFaculty"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Add faculty"
+        android:textSize="40sp"
+        android:gravity="center_horizontal"
+        android:layout_marginVertical="40sp"
+        />
+
+    <EditText
+        android:id="@+id/facultyNameET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:minHeight="48dp"
+        android:background="@drawable/edittextstyle"
+        android:padding="15dp"
+        android:layout_marginHorizontal="40sp"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="30sp"
+        android:autofillHints=""
+        />
+
+    <EditText
+        android:id="@+id/facultyId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Faculty id"
+        android:minHeight="48dp"
+        android:background="@drawable/edittextstyle"
+        android:padding="15dp"
+        android:layout_marginHorizontal="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="30sp"
+        android:autofillHints=""
+        />
+
+    <EditText
+        android:id="@+id/facultyEmailET"
+        android:background="@drawable/edittextstyle"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40sp"
+        android:layout_marginBottom="30sp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:autofillHints=""
+        android:minHeight="48dp"
+        />
+
+    <Button
+        android:id="@+id/addBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:textSize="20sp"
+        android:layout_marginHorizontal="50dp"
+        />
+
+</LinearLayout>

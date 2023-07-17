@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="semesterDropdown">SemDrop</string>
+    <string-array name="sem">
+
+        <item>Semester</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="no_sem_sel">
+        <item>Subject</item>
+    </string-array>
+
+    <string name="subjectDropdown">SubDrop</string>
+
+    // MCA
+    <string-array name="mca_sub_sem_1">
+        <item>Maths</item>
+        <item>Java</item>
+        <item>C</item>
+        <item>PHP</item>
+        <item>RDBMS</item>
+        <item>Basic computer concepts</item>
+    </string-array>
+
+    <string-array name="mca_sub_sem_2">
+        <item>Python</item>
+        <item>Data structures</item>
+        <item>Big data tools</item>
+        <item>Android</item>
+        <item>Computer networks</item>
+        <item>Software project-1</item>
+    </string-array>
+
+    <string-array name="mca_sub_sem_3">
+        <item>Design and analysis of algorithms</item>
+        <item>Machine learning</item>
+        <item>Software engineering</item>
+        <item>Software project-2</item>
+        <item>Cloud computing</item>
+        <item>IOT</item>
+    </string-array>
+
+</resources>
