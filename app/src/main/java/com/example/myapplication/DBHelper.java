@@ -168,7 +168,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getAllData(String text){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from Attendance where enrollment like ?", new String[]{text});
+        Cursor cursor = db.rawQuery("select * from Attendance where enrollment like ? or sname like ?", new String[]{text});
         return cursor;
     }
 

@@ -55,9 +55,12 @@ public class RemoveFaculty extends AppCompatActivity {
     }
 
     public void confirmDelete() {
+        String facultyName;
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setMessage("Are you sure you want to delete?");
+        while (cursor.moveToNext())
+            builder.setMessage("Are you sure you want to delete faculty " + cursor.getString(0) +"?");
 
         builder.setTitle("Confirm delete");
 
