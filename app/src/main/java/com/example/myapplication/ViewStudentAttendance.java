@@ -32,15 +32,6 @@ public class ViewStudentAttendance extends AppCompatActivity {
         searchET = findViewById(R.id.searchText);
         table = findViewById(R.id.table);
 
-        View tableRow = LayoutInflater.from(ViewStudentAttendance.this).inflate(R.layout.student_attendance_table_view, null, false);
-        TextView sr = tableRow.findViewById(R.id.srNo);
-        TextView sname = tableRow.findViewById(R.id.sname);
-        TextView enrollment = tableRow.findViewById(R.id.enrollment);
-        TextView sem = tableRow.findViewById(R.id.semester);
-        TextView sub = tableRow.findViewById(R.id.subject);
-        TextView date = tableRow.findViewById(R.id.date);
-        TextView time = tableRow.findViewById(R.id.time);
-
         db = new DBHelper(this);
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
@@ -54,9 +45,19 @@ public class ViewStudentAttendance extends AppCompatActivity {
                 }
 
                 Cursor cursor = db.getAllData(searchText);
+
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
                     do {
+                        View tableRow = LayoutInflater.from(ViewStudentAttendance.this).inflate(R.layout.student_attendance_table_view, null, false);
+                        TextView sr = tableRow.findViewById(R.id.srNo);
+                        TextView sname = tableRow.findViewById(R.id.sname);
+                        TextView enrollment = tableRow.findViewById(R.id.enrollment);
+                        TextView sem = tableRow.findViewById(R.id.semester);
+                        TextView sub = tableRow.findViewById(R.id.subject);
+                        TextView date = tableRow.findViewById(R.id.date);
+                        TextView time = tableRow.findViewById(R.id.time);
+
                         sr.setText(cursor.getString(0));
                         sname.setText(cursor.getString(1));
                         enrollment.setText(cursor.getString(2));
@@ -65,6 +66,9 @@ public class ViewStudentAttendance extends AppCompatActivity {
                         date.setText(cursor.getString(5));
                         time.setText(cursor.getString(6));
                         table.addView(tableRow);
+
+
+                        // date filtering , update password and generate otp for student
                     }
                     while ((cursor.moveToNext()));
                     cursor.close();
