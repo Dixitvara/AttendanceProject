@@ -66,25 +66,17 @@
             />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="15dp">
-
         <TextView
             android:id="@+id/dateTxt"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Pick date"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_vertical"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:gravity="center_horizontal"
             android:textSize="18sp"
 
             />
-
-
-    </LinearLayout>
 
     <TableLayout
         android:id="@+id/table"
@@ -98,15 +90,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
-            <TextView
-                android:id="@+id/srno"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sr"
-                android:textSize="20sp"
-                android:gravity="center"
-                android:textStyle="bold"
-                />
 
             <TextView
                 android:id="@+id/Headsemester"

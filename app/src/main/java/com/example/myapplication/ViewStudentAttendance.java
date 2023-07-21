@@ -97,9 +97,8 @@ public class ViewStudentAttendance extends AppCompatActivity {
 
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
-                    while ((cursor.moveToNext())) {
+                    while (cursor.moveToNext()) {
                         View tableRow = LayoutInflater.from(ViewStudentAttendance.this).inflate(R.layout.student_attendance_table_view, null, false);
-                        TextView sr = tableRow.findViewById(R.id.srNo);
                         TextView sname = tableRow.findViewById(R.id.sname);
                         TextView enrollment = tableRow.findViewById(R.id.enrollment);
                         TextView sem = tableRow.findViewById(R.id.semester);
@@ -107,7 +106,6 @@ public class ViewStudentAttendance extends AppCompatActivity {
                         TextView date = tableRow.findViewById(R.id.date);
                         TextView time = tableRow.findViewById(R.id.time);
 
-                        sr.setText(cursor.getString(0));
                         sname.setText(cursor.getString(1));
                         enrollment.setText(cursor.getString(2));
                         sem.setText(cursor.getString(3));
@@ -118,6 +116,7 @@ public class ViewStudentAttendance extends AppCompatActivity {
 
                         // date filtering , update password and generate otp for student
                     }
+
                     cursor.close();
                 } else {
                     Toast.makeText(ViewStudentAttendance.this, "No data found!", Toast.LENGTH_SHORT).show();

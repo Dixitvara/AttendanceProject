@@ -96,18 +96,16 @@ public class ViewAttendance extends AppCompatActivity {
                     cursor.moveToFirst();
                     do {
                         View tableRow = LayoutInflater.from(ViewAttendance.this).inflate(R.layout.table_item, null, false);
-                        TextView sr = tableRow.findViewById(R.id.sr);
                         TextView sem = tableRow.findViewById(R.id.semester);
                         TextView sub = tableRow.findViewById(R.id.subject);
                         TextView time = tableRow.findViewById(R.id.time);
 
-                        sr.setText(cursor.getString(0));
                         sem.setText(cursor.getString(3));
                         sub.setText(cursor.getString(4));
                         time.setText(cursor.getString(6));
                         table.addView(tableRow);
                     }
-                    while ((cursor.moveToNext()));
+                    while (cursor.moveToNext());
                     cursor.close();
                 } else {
                     Toast.makeText(ViewAttendance.this, "No data found!", Toast.LENGTH_SHORT).show();

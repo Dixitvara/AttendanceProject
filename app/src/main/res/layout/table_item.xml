@@ -8,13 +8,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/sr"
-        android:layout_weight="0.25"
-        android:gravity="center"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/semester"
         android:layout_weight="0.25"
         android:gravity="center"/>
