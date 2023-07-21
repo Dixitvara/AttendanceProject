@@ -80,7 +80,6 @@ public class ViewAttendance extends AppCompatActivity {
             }
         });
 
-
         getData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,10 +96,10 @@ public class ViewAttendance extends AppCompatActivity {
                     cursor.moveToFirst();
                     do {
                         View tableRow = LayoutInflater.from(ViewAttendance.this).inflate(R.layout.table_item, null, false);
-                        TextView sr = (TextView) tableRow.findViewById(R.id.sr);
-                        TextView sem = (TextView) tableRow.findViewById(R.id.semester);
-                        TextView sub = (TextView) tableRow.findViewById(R.id.subject);
-                        TextView time = (TextView) tableRow.findViewById(R.id.time);
+                        TextView sr = tableRow.findViewById(R.id.sr);
+                        TextView sem = tableRow.findViewById(R.id.semester);
+                        TextView sub = tableRow.findViewById(R.id.subject);
+                        TextView time = tableRow.findViewById(R.id.time);
 
                         sr.setText(cursor.getString(0));
                         sem.setText(cursor.getString(3));

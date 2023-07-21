@@ -172,4 +172,16 @@ public class DBHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor getAttendance(String date)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from attendance where date = ?", new String[]{date});
+        return cursor;
+    }
+
+    public Cursor getAttendanceData(String text, String date){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from Attendance where enrollment like ? or sname like ? and date = ?", new String[]{text, text, date});
+        return cursor;
+    }
 }
