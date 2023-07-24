@@ -4,13 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -21,10 +21,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ViewStudentAttendance extends AppCompatActivity {
+public class ViewSession extends AppCompatActivity {
 
-    ImageButton searchBtn, pickDateBtn;
-    EditText searchET;
+    ImageButton pickDateBtn;
     int year, month, day;
     int flag;
     DBHelper db;
@@ -32,20 +31,25 @@ public class ViewStudentAttendance extends AppCompatActivity {
     String date, finalDate;
     TableLayout table;
     Cursor cursor;
+    Button getDataBtn;
+    String sharedFid;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_student_attendance);
+        setContentView(R.layout.activity_view_session);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        searchBtn = findViewById(R.id.searchBtn);
-        searchET = findViewById(R.id.searchText);
+        getDataBtn = findViewById(R.id.getDataBtn);
         table = findViewById(R.id.table);
         pickDateBtn = findViewById(R.id.pickDateImgBtn);
         dateTxt = findViewById(R.id.dateTxt);
+
+        sharedPreferences = getSharedPreferences("sharedPreference", MODE_PRIVATE);
+        sharedFid = sharedPreferences.getString("sharedFid", "");
 
         db = new DBHelper(this);
 
@@ -57,7 +61,7 @@ public class ViewStudentAttendance extends AppCompatActivity {
                 month = c.get(Calendar.MONTH);
                 day = c.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(ViewStudentAttendance.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ViewSession.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
@@ -78,38 +82,29 @@ public class ViewStudentAttendance extends AppCompatActivity {
             }
         });
 
-        searchBtn.setOnClickListener(new View.OnClickListener() {
+        getDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String searchText = searchET.getText().toString();
-
-                if (searchText.isEmpty()) {
-                    Toast.makeText(ViewStudentAttendance.this, "Please enter enrollment or student name", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 if (flag != 1) {
-                    Toast.makeText(ViewStudentAttendance.this, "Please select date!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ViewSession.this, "Please select date!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                cursor = db.getAttendanceData(searchText, finalDate);
+                cursor = db.getSessionInfo(sharedFid,finalDate);
 
                 if (cursor.getCount() > 0) {
-                    cursor.moveToFirst();
                     while (cursor.moveToNext()) {
-                        View tableRow = LayoutInflater.from(ViewStudentAttendance.this).inflate(R.layout.student_attendance_table_view, null, false);
-                        TextView sname = tableRow.findViewById(R.id.sname);
-                        TextView enrollment = tableRow.findViewById(R.id.enrollment);
-                        TextView sem = tableRow.findViewById(R.id.semester);
+                        View tableRow = LayoutInflater.from(ViewSession.this).inflate(R.layout.session_view, null, false);
+                        TextView sr = tableRow.findViewById(R.id.sr);
+                        TextView otp = tableRow.findViewById(R.id.otp);
+                        TextView sem = tableRow.findViewById(R.id.sem);
                         TextView sub = tableRow.findViewById(R.id.subject);
-                        TextView date = tableRow.findViewById(R.id.date);
                         TextView time = tableRow.findViewById(R.id.time);
 
-                        sname.setText(cursor.getString(1));
-                        enrollment.setText(cursor.getString(2));
+                        sr.setText(cursor.getString(0));
+                        otp.setText(cursor.getString(2));
                         sem.setText(cursor.getString(3));
                         sub.setText(cursor.getString(4));
-                        date.setText(cursor.getString(5));
                         time.setText(cursor.getString(6));
                         table.addView(tableRow);
 
@@ -118,7 +113,7 @@ public class ViewStudentAttendance extends AppCompatActivity {
 
                     cursor.close();
                 } else {
-                    Toast.makeText(ViewStudentAttendance.this, "No data found!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ViewSession.this, "No data found!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

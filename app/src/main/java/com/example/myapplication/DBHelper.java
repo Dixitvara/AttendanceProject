@@ -20,7 +20,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE student(sname text, enrollment text primary key, email email unique, password text)");
         db.execSQL("CREATE TABLE admin(aname text unique not null,email email primary key, password text)");
         db.execSQL("CREATE TABLE faculty(fname text not null, fid text primary key, email email unique not null,password text)");
-        db.execSQL("INSERT INTO admin VALUES (?,?,?)",new String[]{"admin","admin@gmail.com", "admin123"});
+        db.execSQL("CREATE TABLE session(sr integer primary key autoincrement, fid text, otp text, sem text, subject text,date text, time text)");
+        db.execSQL("INSERT INTO admin VALUES (?,?,?)", new String[]{"admin", "admin@gmail.com", "admin123"});
     }
 
     @Override
@@ -83,16 +84,14 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // view attendance of students
-    public Cursor getStudentAttendance( String enrollment,String date)
-    {
+    public Cursor getStudentAttendance(String enrollment, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from attendance where enrollment = ? and date = ?", new String[]{enrollment, date});
         return cursor;
     }
 
     // insert default admin
-    public Boolean addFaculty(String facultyName, String facultyId, String facultyEmail,String password)
-    {
+    public Boolean addFaculty(String facultyName, String facultyId, String facultyEmail, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues c = new ContentValues();
 
@@ -108,8 +107,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // get student information
-    public Boolean checkAdmin(String email, String password)
-    {
+    public Boolean checkAdmin(String email, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from admin where email = ? and password = ?", new String[]{email, password});
 
@@ -119,38 +117,35 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public Cursor getAdminInfo(String email)
-    {
+    public Cursor getAdminInfo(String email) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from admin where email = ?", new String[]{email});
         return cursor;
     }
 
-    public Cursor getFacultyName(String fid)
-    {
+    public Cursor getFacultyName(String fid) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from faculty where fid = ?", new String[]{fid});
         return cursor;
     }
 
-    public Cursor getFacultyInfo(String fid)
-    {
+    public Cursor getFacultyInfo(String fid) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from faculty where fid = ?",new String[]{fid});
+        Cursor cursor = db.rawQuery("select * from faculty where fid = ?", new String[]{fid});
         return cursor;
     }
 
-    public Boolean removeFaculty(String fid){
+    public Boolean removeFaculty(String fid) {
         SQLiteDatabase db = this.getWritableDatabase();
-        long delete = db.delete("faculty","fid = ?", new String[]{fid});
-        if(delete == -1)
+        long delete = db.delete("faculty", "fid = ?", new String[]{fid});
+        if (delete == -1)
             return false;
         else
             return true;
 
     }
 
-    public Cursor viewFaculty(){
+    public Cursor viewFaculty() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from faculty", null);
         return cursor;
@@ -166,20 +161,19 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public Cursor getAllData(String text){
+    public Cursor getAllData(String text) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from Attendance where enrollment like ? or sname like ?", new String[]{text, text});
         return cursor;
     }
 
-    public Cursor getAttendance(String date)
-    {
+    public Cursor getAttendance(String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from attendance where date = ?", new String[]{date});
         return cursor;
     }
 
-    public Cursor getAttendanceData(String text, String date){
+    public Cursor getAttendanceData(String text, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from attendance where enrollment like ? or sname like ? and date like ?", new String[]{text, text, date});
         return cursor;
@@ -214,4 +208,46 @@ public class DBHelper extends SQLiteOpenHelper {
         else
             return true;
     }
+
+    public Cursor getAttendanceData(String enrollment, String subject, String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from attendance where enrollment like ? and subject like ? and date like ?", new String[]{enrollment, subject, date});
+        return cursor;
+    }
+
+    public Cursor checkSession(String fid, String semester, String subject, String date){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from session where fid like ? and sem like ? and subject like ? and date like ?", new String[]{fid, semester, subject, date});
+        return cursor;
+    }
+    public Cursor checkSessionStud(String semester, String subject, String date){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from session where sem like ? and subject like ? and date like ?", new String[]{semester, subject, date});
+        return cursor;
+    }
+
+    // signup user
+    public Boolean insertSession(String fid, String otp, String sem, String subject, String date, String time) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues c = new ContentValues();
+
+        c.put("fid", fid);
+        c.put("otp", otp);
+        c.put("sem", sem);
+        c.put("subject", subject);
+        c.put("date", date);
+        c.put("time", time);
+
+        long l = db.insert("session", null, c);
+        if (l == -1) return false;
+        else
+            return true;
+    }
+
+    public Cursor getSessionInfo(String fid, String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from session where fid like ? and date like ?", new String[]{fid, date});
+        return cursor;
+    }
+
 }

@@ -53,17 +53,6 @@
         android:minHeight="48dp"
         />
 
-    <TextView
-        android:id="@+id/forgetPassword"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="30sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Forget password?"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        />
-
     <Button
         android:id="@+id/signup"
         android:layout_width="match_parent"

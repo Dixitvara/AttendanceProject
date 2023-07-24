@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     EditText enrollment, password;
-    TextView registerLink, otherLogin, forgetPassword;
+    TextView registerLink, otherLogin;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     Button signup;
@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         signup = (Button) findViewById(R.id.signup);
         registerLink = (TextView) findViewById(R.id.registerLink);
         otherLogin = findViewById(R.id.otherLogin);
-        forgetPassword = findViewById(R.id.forgetPassword);
         DB = new DBHelper(this);
 
         registerLink.setOnClickListener(new View.OnClickListener() {
@@ -55,13 +54,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), FacultyLogin.class));
-            }
-        });
-
-        forgetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), ForgetPassword.class));
             }
         });
 

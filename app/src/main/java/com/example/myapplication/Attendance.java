@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,8 +40,9 @@ public class Attendance extends AppCompatActivity {
     Spinner semSpinner, subSpinner;
     ArrayAdapter<CharSequence> adapter1, adapter2;
     String selectedSem;
-    String selectedSub;
+    String selectedSub, OTP;
     TextView semError;
+    EditText OTPET;
 
     // Database variables
     Button Attendance;
@@ -49,7 +51,7 @@ public class Attendance extends AppCompatActivity {
     FusedLocationProviderClient fusedLocationProviderClient;
     TextView address;
     Button getLocation;
-    int flag;
+    int flag, flag2;
     SharedPreferences sharedPreferences;
 
     // store current location coordinates in variables
@@ -73,11 +75,12 @@ public class Attendance extends AppCompatActivity {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         // other variables
-        Attendance=(Button) findViewById(R.id.attendance);
-        getLocation = (Button) findViewById(R.id.getLocation);
+        Attendance= findViewById(R.id.attendance);
+        getLocation = findViewById(R.id.getLocation);
+        OTPET = findViewById(R.id.Otp);
 
         // first spinner
-        semSpinner = (Spinner) findViewById(R.id.spinner1);
+        semSpinner = findViewById(R.id.spinner1);
         adapter1 = ArrayAdapter.createFromResource(this, R.array.sem, R.layout.spinner_layout);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         semSpinner.setAdapter(adapter1);
@@ -96,6 +99,7 @@ public class Attendance extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getLastLocation();
+                flag2 = 1;
             }
         });
 
@@ -154,15 +158,6 @@ public class Attendance extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // get current date and time
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("hh:mm:ss");
-                String date = simpleDateFormat.format(calendar.getTime());
-                String time = simpleTimeFormat.format(calendar.getTime());
-
-                String StudentName = "";
-
                 // showing error message if user doesn't select semester
                 if(selectedSem.equals("Semester"))
                 {
@@ -174,6 +169,28 @@ public class Attendance extends AppCompatActivity {
                 else{
                     semError.setError(null);
                 }
+
+                String otp = OTPET.getText().toString();
+                if(otp.isEmpty())
+                {
+                    Toast.makeText(Attendance.this, "Enter OTP!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(flag2 != 1)
+                {
+                    Toast.makeText(Attendance.this, "Get location first!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // get current date and time
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("hh:mm:ss");
+                String date = simpleDateFormat.format(calendar.getTime());
+                String time = simpleTimeFormat.format(calendar.getTime());
+
+                String StudentName = "";
 
                 // function checks whether the user is inside college campus or not
                 checkLocation();
@@ -188,15 +205,35 @@ public class Attendance extends AppCompatActivity {
                     }
                 }
 
-                if(flag != 1){
-                    Boolean insertData = db.insertAttendanceData(StudentName, enrollmentNo, selectedSem, selectedSub, date, time);
-                    if(insertData)
-                    {
-                        Toast.makeText(Attendance.this, "Attendance marked!", Toast.LENGTH_SHORT).show();
+                if(flag != 1)
+                {
+                    Cursor createdSession = db.checkSessionStud(selectedSem, selectedSub, date);
+
+                    if(createdSession.getCount() != 1){
+                        Toast.makeText(Attendance.this, "Session is not created by subject teacher!", Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                    else 
-                    {
-                        Toast.makeText(Attendance.this, "Failed to insert data", Toast.LENGTH_SHORT).show();
+
+                    while(createdSession.moveToNext())
+                        OTP = createdSession.getString(2);
+
+                    if(OTP.equals(otp)) {
+                        Cursor checkAttendance = db.getAttendanceData(enrollmentNo, selectedSub, date);
+
+                        if (checkAttendance.getCount() > 0) {
+                            Toast.makeText(Attendance.this, "Already marked for " + selectedSub, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        Boolean insertData = db.insertAttendanceData(StudentName, enrollmentNo, selectedSem, selectedSub, date, time);
+                        if (insertData) {
+                            Toast.makeText(Attendance.this, "Attendance marked!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(Attendance.this, "Failed to insert data", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else {
+                        Toast.makeText(Attendance.this, "Wrong OTP!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

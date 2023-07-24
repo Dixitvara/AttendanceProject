@@ -21,7 +21,6 @@ import com.google.android.gms.tasks.Task;
 public class AdminLogin extends AppCompatActivity {
 
     EditText emailId, pass;
-    TextView forgetPassword;
     Button signup;
     DBHelper DB;
     SharedPreferences sharedPreferences;
@@ -35,10 +34,9 @@ public class AdminLogin extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        emailId = (EditText) findViewById(R.id.email);
-        pass = (EditText) findViewById(R.id.password);
-        signup = (Button) findViewById(R.id.signup);
-        forgetPassword = findViewById(R.id.forgetPassword);
+        emailId = findViewById(R.id.email);
+        pass = findViewById(R.id.password);
+        signup = findViewById(R.id.signup);
 
         sharedPreferences = getSharedPreferences("sharedPreference", MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -48,37 +46,33 @@ public class AdminLogin extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String  emailid,lpass;
+                String emailid, lpass;
                 emailid = String.valueOf(emailId.getText());
-                lpass= String.valueOf(pass.getText());
+                lpass = String.valueOf(pass.getText());
 
-                if(!isValidEmail(emailid))
-                {
+                if (!isValidEmail(emailid)) {
                     Toast.makeText(AdminLogin.this, "Not valid email", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(lpass))
-                {
+                if (TextUtils.isEmpty(lpass)) {
                     Toast.makeText(AdminLogin.this, "Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 // login code
                 Boolean checkAdmin = DB.checkAdmin(emailid, lpass);
-                if(checkAdmin)
-                {
+                if (checkAdmin) {
                     Toast.makeText(AdminLogin.this, "Login successfully", Toast.LENGTH_SHORT).show();
                     editor.putString("sharedEmail", emailid);
                     editor.apply();
                     startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
-                }
-                else
-                {
+                } else {
                     Toast.makeText(AdminLogin.this, "Invalid credentials!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
     public static boolean isValidEmail(CharSequence email) {
         return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
     }

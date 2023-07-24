@@ -64,7 +64,19 @@ public class UpdateProfile extends AppCompatActivity {
                 String emailEText = emailET.getText().toString();
                 String passwordEText = passwordET.getText().toString();
 
-                if (fullname == null || emailEText == null || passwordEText == null) {
+                if (fullname.isEmpty()) {
+                    Toast.makeText(UpdateProfile.this, "Fields can't be empty!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(emailEText.isEmpty())
+                {
+                    Toast.makeText(UpdateProfile.this, "Fields can't be empty!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(passwordEText.isEmpty())
+                {
                     Toast.makeText(UpdateProfile.this, "Fields can't be empty!", Toast.LENGTH_SHORT).show();
                     return;
                 }

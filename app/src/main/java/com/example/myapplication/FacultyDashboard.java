@@ -19,7 +19,7 @@ public class FacultyDashboard extends AppCompatActivity {
     String sharedFid;
     Cursor cursor;
     TextView facultyName;
-    CardView logout, viewAttendance;
+    CardView logout, viewAttendance, updatepassword, generateOTP, viewSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,9 @@ public class FacultyDashboard extends AppCompatActivity {
         facultyName = findViewById(R.id.facultyName);
         logout = findViewById(R.id.cardviewLogout);
         viewAttendance = findViewById(R.id.cardviewViewAttendance);
-
+        updatepassword = findViewById(R.id.cardviewUpdatePassword);
+        generateOTP = findViewById(R.id.cardviewGAO);
+        viewSession = findViewById(R.id.cardviewViewSession);
 
         DBHelper db = new DBHelper(this);
 
@@ -55,6 +57,27 @@ public class FacultyDashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), ViewStudentAttendance.class));
+            }
+        });
+
+        generateOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), GenerateOtp.class));
+            }
+        });
+
+        viewSession.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ViewSession.class));
+            }
+        });
+
+        updatepassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), UpdatePassword.class));
             }
         });
 
