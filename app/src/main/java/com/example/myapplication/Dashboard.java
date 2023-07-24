@@ -16,7 +16,7 @@ import org.w3c.dom.Text;
 public class Dashboard extends AppCompatActivity {
 
     TextView profileName;
-    CardView logout, markAttendance, updateProfile, viewAttendance;
+    CardView logout, markAttendance, updateProfile, viewAttendance, aboutUs;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     DBHelper db;
@@ -47,6 +47,7 @@ public class Dashboard extends AppCompatActivity {
         markAttendance = findViewById(R.id.cardviewMarkAttendance);
         updateProfile = findViewById(R.id.cardviewUpdateprofile);
         viewAttendance = findViewById(R.id.cardviewViewAttendance);
+        aboutUs = findViewById(R.id.cardviewAboutUs);
 
         markAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +67,13 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), ViewAttendance.class));
+            }
+        });
+
+        aboutUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), AboutUs.class));
             }
         });
 

@@ -184,4 +184,34 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("select * from attendance where enrollment like ? or sname like ? and date like ?", new String[]{text, text, date});
         return cursor;
     }
+
+    // update user details
+    public Boolean updateStudDetails(String enrollment, String studName, String studEmail, String studPassword) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues c = new ContentValues();
+
+        c.put("sname", studName);
+        c.put("email", studEmail);
+        c.put("password", studPassword);
+
+        long l = db.update("student", c, "enrollment=?", new String[]{enrollment});
+        if (l == -1) return false;
+        else
+            return true;
+    }
+
+    // update faculty password
+    public Boolean updatePassword(String fid, String newPassword) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues c = new ContentValues();
+
+        c.put("password", newPassword);
+
+        long l = db.update("faculty", c, "fid=?", new String[]{fid});
+        if (l == -1) return false;
+        else
+            return true;
+    }
 }

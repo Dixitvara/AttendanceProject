@@ -303,7 +303,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardviewAbout"
+            android:id="@+id/cardviewAboutUs"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
