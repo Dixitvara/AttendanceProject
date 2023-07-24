@@ -114,7 +114,7 @@ public class ViewStudentAttendance extends AppCompatActivity {
                         time.setText(cursor.getString(6));
                         table.addView(tableRow);
 
-                        // date filtering , update password and generate otp for student
+                        // update password and generate otp for student
                     }
 
                     cursor.close();

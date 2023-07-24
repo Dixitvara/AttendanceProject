@@ -40,12 +40,12 @@
                 android:layout_gravity="center">
 
                 <TextView
-                    android:id="@+id/Enrollment_no"
+                    android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profileImg"
                     android:layout_centerHorizontal="true"
-                    android:text="Enrollment No"
+                    android:text="Student name"
                     android:layout_marginTop="10dp"
                     android:textSize="18sp"
 

@@ -19,7 +19,7 @@ public class FacultyDashboard extends AppCompatActivity {
     String sharedFid;
     Cursor cursor;
     TextView facultyName;
-    CardView logout, viewAttendance;
+    CardView logout, viewAttendance, generateOTP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class FacultyDashboard extends AppCompatActivity {
 
         facultyName = findViewById(R.id.facultyName);
         logout = findViewById(R.id.cardviewLogout);
+        generateOTP = findViewById(R.id.cardviewGAO);
         viewAttendance = findViewById(R.id.cardviewViewAttendance);
 
 
@@ -55,6 +56,13 @@ public class FacultyDashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), ViewStudentAttendance.class));
+            }
+        });
+
+        generateOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), GenerateOtp.class));
             }
         });
 

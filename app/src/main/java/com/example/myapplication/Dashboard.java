@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -14,10 +15,11 @@ import org.w3c.dom.Text;
 
 public class Dashboard extends AppCompatActivity {
 
-    TextView profileEnrollment;
+    TextView profileName;
     CardView logout, markAttendance, updateProfile, viewAttendance;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +32,16 @@ public class Dashboard extends AppCompatActivity {
         // shared preferences variables
         sharedPreferences = getSharedPreferences("sharedPreference", MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        profileEnrollment = findViewById(R.id.Enrollment_no);
+        profileName = findViewById(R.id.name);
 
         String enrollment = sharedPreferences.getString("sharedEnrollment", "");
 
-        profileEnrollment.setText(enrollment);
+        db = new DBHelper(this);
+        Cursor cursor = db.getStudentInfo(enrollment);
+        if(cursor.getCount() == 1 ){
+            while (cursor.moveToNext())
+                profileName.setText(cursor.getString(0));
+        }
 
         logout = findViewById(R.id.cardviewlogout);
         markAttendance = findViewById(R.id.cardviewMarkAttendance);

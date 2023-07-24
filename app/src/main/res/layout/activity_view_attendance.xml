@@ -21,22 +21,11 @@
         android:textSize="40sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/dateTxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pick date"
-        android:layout_marginVertical="15dp"
-        android:gravity="center"
-        android:textSize="18sp"
-
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="15dp">
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/pickDateImgBtn"
@@ -44,70 +33,88 @@
             android:layout_height="50sp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="30dp"
-            android:padding="20dp"
             android:background="@color/lavender"
+            android:padding="20dp"
             android:src="@drawable/calendar_and"
             app:tint="@color/white"
-            tools:ignore="SpeakableTextPresentCheck"
-            />
+            tools:ignore="SpeakableTextPresentCheck" />
 
-    <Button
-        android:id="@+id/getDataBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:text="Get data"
-        android:textSize="20sp"
-        android:layout_gravity="center"
-
-        />
-    </LinearLayout>
-
-    <TableLayout
-        android:id="@+id/table"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="*"
-        android:orientation="vertical">
-
-        <TableRow
-            android:id="@+id/Heading"
+        <Button
+            android:id="@+id/getDataBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="30dp"
+            android:text="Get data"
+            android:textSize="20sp"
 
-            <TextView
-                android:id="@+id/Headsemester"
-                android:layout_width="wrap_content"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dateTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="15dp"
+        android:gravity="center"
+        android:text="Pick date"
+        android:textSize="20sp"
+
+        />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:id="@+id/table"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Semester"
-                android:textSize="20sp"
-                android:gravity="center"
-                android:textStyle="bold"
-                />
+                android:orientation="vertical"
+                android:stretchColumns="*">
 
-            <TextView
-                android:id="@+id/Headsubject"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Subject"
-                android:textSize="20sp"
-                android:gravity="center"
-                android:textStyle="bold"
-                />
+                <TableRow
+                    android:id="@+id/Heading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/Headtime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Time"
-                android:textSize="20sp"
-                android:gravity="center"
-                android:textStyle="bold"
-                />
+                    <TextView
+                        android:id="@+id/Headsemester"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Semester"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-        </TableRow>
+                    <TextView
+                        android:id="@+id/Headsubject"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Subject"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-    </TableLayout>
+                    <TextView
+                        android:id="@+id/Headtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Time"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
